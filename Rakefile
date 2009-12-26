@@ -7,4 +7,5 @@
     gemspec.authors = ["Roger Pack"]
     gemspec.add_dependency('sane')
     gemspec.add_development_dependency('rspec')
+    gemspec.files = Dir['lib/*']
   end
