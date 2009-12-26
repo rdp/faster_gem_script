@@ -1,0 +1,46 @@
+This is a utility to speedup gem scripts quite a bit (especially for windows users), by avoiding expensive rubygems calls.
+
+Background:
+
+By default rubygems runs a
+
+require rubygems
+...
+load Gem.bin_path(...)
+
+in every gem's auto-generated startup script (ex: the ruby-prof gem has a ruby-prof command--it runs the above before running that command).
+
+This is great if you have a complex gem that requires specific version of its dependencies, etc.
+
+However, these calls result in an extra slowdown--especially in windows it can take up to an extra 2s, EVERY TIME, at startup.
+
+This can be alleviated, however, with this gem.
+
+In my box 2s went down to 0.37s (1.9.1 mingw).  In linux it can speedup a tidge, too (from 0.3 to 0.16s). 
+
+How it does it:
+
+This gem provides a utility to replace the auto-generated startup script with one that caches the bin_path location so that the second/third/fourth times it starts up almost instantly.
+
+This works in 1.9 because of gem_prelude (which makes loading rubygems at times unnecessary), and of the "faster_rubygems" gem for 1.8.x, which is essentially gem_prelude for 1.8.
+
+How to use it:
+
+# install a gem that has a command line executable, like ruby-prof
+
+# install a gem pre-req--necessary because of a bug in rubygems
+C:> gem install os 
+# install the optimizer
+C:> gem install faster_gem_scripts
+# this next line will change based on your ruby location
+C:> faster_gem_script c:\ruby18\bin\whichr
+
+Caveat:  If you update a gem after using this, you'll need to run it again so that it will be sure to cache the location of the latest version of the gem.
+
+Other caveat: if your gem has any "complex dependencies" (like it uses the gem command like 
+
+gem 'some_other_dependency', '= 1.1.9'
+
+then this system won't work for you.  Try it out to see.
+
+You can find out by running it once.  If it fails then reinstall the gem to get back to its original functionality.
