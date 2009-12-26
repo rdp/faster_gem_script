@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+
+all = <<ENDL
+gem_name = File.basename(__FILE__)
+
+if ARGV.first =~ /^_(.*)_$/
+  # special version of the gem--we'll need full rubygems for this
+  require 'rubygems'
+  if Gem::Version.correct? $1 then
+    version = $1
+    ARGV.shift
+    gem gem_name, version
+    load Gem.bin_path(gem_name, gem_name, version)
+    exit
+  end
+end
+
+cached = File.dirname(__FILE__) + "/#{gem_name}_bin_location"
+
+ # if we haven't cached its location yet...
+unless File.exist? cached
+ File.open(cached, 'w') do |f|
+   require 'rubygems'
+   f.write Gem.bin_path(gem_name, gem_name, ">= 0")
+ end
+end
+
+require 'faster_rubygems' if RUBY_VERSION < '1.9' # gem prelude equivalent
+
+load File.read(cached)
+ENDL
