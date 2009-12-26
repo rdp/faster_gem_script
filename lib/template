@@ -1,7 +1,3 @@
-#!/usr/bin/env ruby
-
-
-all = <<ENDL
 gem_name = File.basename(__FILE__)
 
 if ARGV.first =~ /^_(.*)_$/
@@ -29,4 +25,3 @@ end
 require 'faster_rubygems' if RUBY_VERSION < '1.9' # gem prelude equivalent
 
 load File.read(cached)
-ENDL
