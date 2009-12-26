@@ -1,0 +1,8 @@
+require 'sane'
+require_rel '../lib/faster_gem_scripts'
+if ARGV.length == 0 || ARGV[0] == '-h' || ARGV[0] == '--help'
+  puts "syntax: gem binary, like bin/abc (no .rb)"
+  exit
+end
+
+FasterGemScripts.overwrite ARGV[0]
