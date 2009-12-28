@@ -1,6 +1,6 @@
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
-    gemspec.name = "faster_gem_scripts"
+    gemspec.name = "faster_gem_script"
     gemspec.summary = "A utility to make ruby \"command line scripts\" run much faster by using gem prelude instead of full rubygems"
     gemspec.email = "rogerdpack@gmail.com"
     gemspec.homepage = "http://github.com/rdp/faster_gem_scripts"
