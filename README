@@ -1,0 +1,41 @@
+Example:
+
+# install it
+C:\> gem install faster_gem_script
+
+# install something to optimize
+
+C:\> gem install whichr
+
+C:\>whichr whichr
+higher in the list is executed first
+C:\installs\ruby19_mingw\bin\whichr.bat
+
+C:\>faster_gem_script C:\installs\ruby19_mingw\bin\whichr
+
+# now run it twice
+
+
+
+C:\> timer whichr whichr
+higher in the list is executed first
+C:\installs\ruby19_mingw\bin\whichr.bat
+
+2.484375
+
+C:\dev\ruby\faster_gem_script>timer whichr whichr
+higher in the list is executed first
+C:\installs\ruby19_mingw\bin\whichr.bat
+
+0.40625
+
+Yea much faster now.
+
+You can revert back to the original performance, too.
+
+C:\> gem install whichr
+C:\> timer whichr whichr
+higher in the list is executed first
+C:\installs\ruby19_mingw\bin\whichr.bat
+
+2.5625
