@@ -35,6 +35,8 @@ C:> gem install faster_gem_scripts
 # this next line will change based on your ruby location
 C:> faster_gem_script c:\ruby18\bin\whichr
 
+If you want an easier way to discover the path for your commands (and are on windows), you can checkout the whichr gem (http://github.com/rdp/whichr).
+
 Caveat:  If you update a gem after using this, you'll need to run it again so that it will be sure to cache the location of the latest version of the gem.
 
 Other caveat: if your gem has any "complex dependencies" (like it uses the gem command like 

@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'sane'
 require_rel '../lib/faster_gem_scripts'
 if ARGV.length == 0 || ARGV[0] == '-h' || ARGV[0] == '--help' || ARGV[0].include?('.rb')
@@ -8,4 +9,4 @@ end
 FasterGemScripts.overwrite ARGV[0]
 
 puts
-puts 'optimized it--it will cache the location the next run then be fast after that'
+puts 'optimized it--it will create a cache on the next run, then be fast the run after that'

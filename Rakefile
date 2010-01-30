@@ -5,7 +5,9 @@
     gemspec.email = "rogerdpack@gmail.com"
     gemspec.homepage = "http://github.com/rdp/faster_gem_scripts"
     gemspec.authors = ["Roger Pack"]
-    gemspec.add_dependency('sane')
+    gemspec.add_dependency('sane', '>= 0.17.0')
     gemspec.add_development_dependency('rspec')
     gemspec.files = Dir['lib/*']
+    gemspec.files = Dir['ext/*']
+    gemspec.extensions = 'ext/mkrf_conf.rb'
   end
