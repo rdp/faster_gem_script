@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This is a utility to speedup gem scripts quite a bit (especially for windows users), by avoiding expensive rubygems calls.
 
 Background:
