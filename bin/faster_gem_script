@@ -1,10 +1,17 @@
 #!/usr/bin/env ruby
 require 'sane'
-require_rel '../lib/faster_gem_scripts'
+require_relative '../lib/faster_gem_scripts'
+
 if ARGV.length == 0 || ARGV[0] == '-h' || ARGV[0] == '--help' || ARGV[0].include?('.rb')
   puts "syntax: faster_gem_script full_path_to_startup_script, like c:\\ruby18\\bin\\gem_name (no .rb)"
   exit
 end
+
+Dir[__dir__ + '/*_bin_location'].each{|f|
+  File.delete f
+  puts 'cleared old file:' + f
+}
+
 
 FasterGemScripts.overwrite ARGV[0]
 

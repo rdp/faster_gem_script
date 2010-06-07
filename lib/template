@@ -14,8 +14,8 @@ end
 
 cached = File.dirname(__FILE__) + "/#{gem_name}_bin_location"
 
- # if we haven't cached its location yet...
-unless File.exist? cached
+# if we haven't cached its location yet...
+if !File.exist?(cached) || File.size(cached) == 0
  File.open(cached, 'w') do |f|
    require 'rubygems'
    f.write Gem.bin_path(gem_name, gem_name, ">= 0")

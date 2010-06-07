@@ -7,7 +7,7 @@ require 'rubygems'
   end 
   inst = Gem::DependencyInstaller.new
   begin
-    if RUBY_VERSION < "1.9" # need the helper
+    if RUBY_VERSION < "1.9" # need this helper for 1.8
       inst.install "faster_rubygems"
     end
     rescue

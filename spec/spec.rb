@@ -1,5 +1,6 @@
+require 'rubygems'
 require 'sane'
-require_rel '../lib/faster_gem_scripts'
+require_relative '../lib/faster_gem_scripts'
 require 'spec/autorun'
 
 describe "rewriter" do
@@ -21,5 +22,15 @@ describe "rewriter" do
     setup
     assert !File.exist?('abc_bin_location')
   end
+  
+  it "should clear olds on request" do
+    old_file = __dir__ + '/../bin/yo_bin_location' 
+    FileUtils.touch old_file
+    ARGV << 'yoyo'
+    load __dir__ + '/../bin/faster_gem_script'
+    assert !File.exist?(old_file)
+  end
+  
+  it 'should overwrite zero length files'
 
 end
