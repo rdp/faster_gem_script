@@ -1,49 +1,53 @@
-<<<<<<< HEAD
-This is a utility to speedup gem scripts quite a bit (especially for windows users), by avoiding expensive rubygems calls.
+This is a utility to speedup gem executable scripts quite a bit (especially for windows users), by avoiding expensive rubygems calls.
 
 Background:
 
 By default rubygems runs a
 
-require rubygems
-...
-load Gem.bin_path(...)
 
-in every gem's auto-generated startup script (ex: the ruby-prof gem has a ruby-prof command--it runs the above before running that command).
+  require rubygems
+  ...
+  load Gem.bin_path(name)
+
+in every gem's auto-generated startup (ex: bin/ruby-prof script).
 
 This is great if you have a complex gem that requires specific version of its dependencies, etc.
 
-However, these calls result in an extra slowdown--especially in windows it can take up to an extra 2s, EVERY TIME, at startup.
+However, this template loads full rubygems (even in 1.9), which results in an extra slowdown.
+In windows, for example, this take an extra 2s, EVERY TIME, at startup.
 
-This can be alleviated, however, with this gem.
+This can be alleviated, however.
 
-In my box 2s went down to 0.37s (1.9.1 mingw).  In linux it can speedup a tidge, too (from 0.3 to 0.16s). 
+In my box 2s went down to 0.37s (1.9.1 mingw).  In linux it can startup a bit faster, too (from 0.3 to 0.16s). 
 
-How it does it:
+This gem provides a utility to replace the auto-generated startup script with one that caches the 
+Gem.bin_path result so that the second/third/fourth times it starts up using a cached value.
 
-This gem provides a utility to replace the auto-generated startup script with one that caches the bin_path location so that the second/third/fourth times it starts up almost instantly.
-
-This works in 1.9 because of gem_prelude (which makes loading rubygems at times unnecessary), and of the "faster_rubygems" gem for 1.8.x, which is essentially gem_prelude for 1.8.
+In 1.9, this allows it to avoid loading full rubygems.
+In 1.8, it relies on the "faster_rubygems" gem, which also avoids loading full rubygems.
 
 How to use it:
 
-# install a gem that has a command line executable, like ruby-prof
-
-# install a gem pre-req--necessary because of a bug in rubygems
-C:> gem install os 
-# install the optimizer
+# install the gem
 C:> gem install faster_gem_scripts
-# this next line will change based on your ruby location
-C:> faster_gem_script c:\ruby18\bin\whichr
+# now use it to optimize an existing gem, ex:
+C:> faster_gem_script c:\ruby18\bin\redcar
 
-If you want an easier way to discover the path for your commands (and are on windows), you can checkout the whichr gem (http://github.com/rdp/whichr).
+If you want an easy way to discover the gem paths (and are on windows), 
+you can checkout the whichr gem (http://github.com/rdp/whichr).
 
-Caveat:  If you update a gem after using this, you'll need to run it again so that it will be sure to cache the location of the latest version of the gem.
+Other caveat: if your gem has any "complex dependencies" ,like it uses things like
 
-Other caveat: if your gem has any "complex dependencies" (like it uses the gem command like 
+gem 'some_other_dependency', '= 1.1.9' # somewhere inside it
 
-gem 'some_other_dependency', '= 1.1.9'
+then this system won't help, because it will be forced to load full rubygems at that point.  
 
-then this system won't work for you.  Try it out to see.
+You can find out by running it once.  If it fails then reinstall the gem in question to get back to its original functionality.
 
-You can find out by running it once.  If it fails then reinstall the gem to get back to its original functionality.
+Current problems:
+
+Currently it only works for executables named the same thing as their gem is, ex:
+redcar's bin/redcar works
+redcar's bin/cucumber does not.
+
+Try it out and see.  If it fails then reinstall the gem in question to get back to its original functionality.

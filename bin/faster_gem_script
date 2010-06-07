@@ -2,8 +2,9 @@
 require 'faster_gem_scripts'
 if ARGV.length == 1
   FasterGemScripts.overwrite ARGV[0]
+  puts 'clearing caches because of new gem install'
 else
   puts 'syntax: script_name_to_optimize (clears caches either way)'
 end
-
 FasterGemScripts.clear_caches!
+
