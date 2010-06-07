@@ -7,6 +7,7 @@ describe "rewriter" do
 
   def setup
     File.delete 'abc' if File.exist?('abc')
+    FileUtils.touch 'abc'
     FasterGemScripts.overwrite 'abc'
   end
 
@@ -24,7 +25,7 @@ describe "rewriter" do
   end
   
   it "should clear olds on request" do
-    old_file = __dir__ + '/../bin/yo_bin_location' 
+    old_file = File.dirname(OS.ruby_bin) + '/yo_bin_location' 
     FileUtils.touch old_file
     ARGV << 'yoyo'
     load __dir__ + '/../bin/faster_gem_script'

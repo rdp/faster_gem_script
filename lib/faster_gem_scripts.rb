@@ -15,7 +15,9 @@ class FasterGemScripts
   def self.clear_caches!
     # I only know about one type...
    bin_dir = Gem.ruby.split('/')[0..-2].join('/') # strip off ruby.exe
-   Dir[bin_dir = '/*_bin_location'].each{|file|
+  require 'ruby-debug'
+#  debugger
+   Dir[bin_dir + '/*_bin_location'].each{|file|
      puts 'faster_gem_scripts clearing cached file ' + file
      File.delete file   
    }

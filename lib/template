@@ -15,7 +15,7 @@ end
 cached = File.dirname(__FILE__) + "/#{gem_name}_bin_location"
 
 # if we haven't cached its location yet...
-unless File.exist? cached
+if !File.exist?(cached) || File.size(cached) == 0
  File.open(cached, 'w') do |f|
    # then setup the cache
    puts 'faster_gem_script cacheing bin location (1st time only) ' + __FILE__

@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 require 'faster_gem_scripts'
-if ARGV.length == 0
-  puts 'syntax: script_name_to_optimize'
+if ARGV.length == 1
+  FasterGemScripts.overwrite ARGV[0]
 else
-  FasterGemScripts.overwrite ARGV[0]
+  puts 'syntax: script_name_to_optimize (clears caches either way)'
 end
 
 FasterGemScripts.clear_caches!
