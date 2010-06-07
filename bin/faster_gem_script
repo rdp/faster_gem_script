@@ -1,19 +1,9 @@
 #!/usr/bin/env ruby
-require 'sane'
-require_relative '../lib/faster_gem_scripts'
-
-if ARGV.length == 0 || ARGV[0] == '-h' || ARGV[0] == '--help' || ARGV[0].include?('.rb')
-  puts "syntax: faster_gem_script full_path_to_startup_script, like c:\\ruby18\\bin\\gem_name (no .rb)"
-  exit
+require 'faster_gem_scripts'
+if ARGV.length == 0
+  puts 'syntax: script_name_to_optimize'
+else
+  FasterGemScripts.overwrite ARGV[0]
 end
 
-Dir[__dir__ + '/*_bin_location'].each{|f|
-  File.delete f
-  puts 'cleared old file:' + f
-}
-
-
-FasterGemScripts.overwrite ARGV[0]
-
-puts
-puts 'optimized it--it will create a cache on the next run, then be fast the run after that'
+FasterGemScripts.clear_caches!

@@ -6,8 +6,8 @@
     gemspec.homepage = "http://github.com/rdp/faster_gem_scripts"
     gemspec.authors = ["Roger Pack"]
     gemspec.add_dependency('sane', '>= 0.17.0')
+    gemspec.add_dependency('faster_require')
     gemspec.add_development_dependency('rspec')
-    gemspec.files = Dir['lib/*']
-    gemspec.files = Dir['ext/*']
+    # don't need faster_rubygems here, as we auto install it
     gemspec.extensions = 'ext/mkrf_conf.rb'
   end

@@ -1,7 +1,7 @@
 gem_name = File.basename(__FILE__)
 
 if ARGV.first =~ /^_(.*)_$/
-  # special version of the gem--we'll need full rubygems for this
+  # special version of the gem--we'll need full rubygems for this...
   require 'rubygems'
   if Gem::Version.correct? $1 then
     version = $1
@@ -15,13 +15,15 @@ end
 cached = File.dirname(__FILE__) + "/#{gem_name}_bin_location"
 
 # if we haven't cached its location yet...
-if !File.exist?(cached) || File.size(cached) == 0
+unless File.exist? cached
  File.open(cached, 'w') do |f|
+   # then setup the cache
+   puts 'faster_gem_script cacheing bin location (1st time only) ' + __FILE__
    require 'rubygems'
    f.write Gem.bin_path(gem_name, gem_name, ">= 0")
  end
 end
 
 require 'faster_rubygems' if RUBY_VERSION < '1.9' # gem prelude equivalent
-
+require 'faster_require' # happiness
 load File.read(cached)
